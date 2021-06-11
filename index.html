@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body class="background">
+
+	<script>
+		$(document).ready(function(){
+			let text = "<div>"
+			let detail = "<div>"
+        $.getJSON("lessons.json", function(data){
+            
+          console.log(data)
+            for(i=0;i<=6;i++){
+            	 text 
+            	 +="<div class='row tema'>"
+            	 + "<div class='col-3'>Tema:"+(i+1)+"<br>"+ data.content[i].lesson_cat_title +"</div>"
+            	 + "<div class='col-2'>"+data.content[i].lesson_start_date+"</div>"
+            	 + "<div class='col-1'>Toplam <br>"+data.content[i].lesson_success+"</div>"
+            	 + "<div class='col-1'>Çözülen <br>"+data.content[i].lesson_solved+"</div>"
+            	 + "<div class='col-1'>Doğru <br>"+ data.content[i].lesson_correct+"</div>"
+            	 + "<div class='col-1'>Yanlış <br>"+data.content[i].lesson_wrong+"</div>"
+            	 + "<div class='col-1'>Kazanım&nbsp;%"+data.content[i].lesson_earnings+" <progress value='"+data.content[i].lesson_earnings+"'max='15'></progress></div>"
+            	 + "<div class='col-1'>"+"&nbsp;&nbsp;<button class='"+i+" btn btn-primary' type='button' data-toggle='collapse' data-target='#collapseExample' aria-expanded='false' aria-controls='collapseExample'>↓</button>"+"</div>"             	            	 
+            	 + "</div>"
+ 							 + "<div class='collapse' id='collapseExample'><div class='card'></div></div>"
+            	 + "<br>";           	 
+            	}
+            text += "</div>"
+            $("#demo").html(text);            
+        }).fail(function(){
+            console.log("An error has occurred.");
+        });
+  });
+
+	</script>
+	<br><br>
+
+	<div class="container" > 
+		<h4>Ders Icerikleri</h4>
+		<hr>
+		<div id="demo"></div>
+</div>
+		<script>	
+				$(document).ready(function(){	
+								let text3="";
+								let text2="";
+								let shortT="<div class='row Basliktema'>"
+						       					+"<div class='col-3'>Konu</div>"
+						       					+"<div class='col-1'>Toplam</div>"
+						       					+"<div class='col-1'>Doğru</div>"
+						       					+"<div class='col-1'>Yanlış</div>"
+						       					+"<div class='col-1'>Başarı</div>"
+						       					+"<div class='col-4'>Kazanım</div>"
+						       					+"</div>";
+					       		$.getJSON("lessons.json", function(data){
+						       				$("."+0).click(function(){						       				
+						       					text2="";
+						       					text2+=shortT;						       											       										       						
+							       					for(j=0;j<=data.content[0].lesson_sub.length;j++){																
+									          			text2 
+									          			+="<div class='row tema'>"
+									          			+"<div class='col-4'>"+"<span><button class='d"+j+" btn btn-primary' type='button' data-toggle='collapse' data-target='.multi-collapse' aria-expanded='false' aria-controls='multiCollapseExample1'>+</button>&nbsp;&nbsp;</span>"
+									          			+data.content[0].lesson_sub[j].lesson_cat_title+"</div>"
+									          			+"<div class='col-1'>"+data.content[0].lesson_sub[j].lesson_solved+"</div>"									          			
+									          			+"<div class='col-1'>"+data.content[0].lesson_sub[j].lesson_correct+"</div>"									          		
+									          			+"<div class='col-1'>"+data.content[0].lesson_sub[j].lesson_wrong+"</div>"								          			
+									          			+"<div class='col-1'>"+data.content[0].lesson_sub[j].lesson_success+"</div>"									          			
+									          			+"<div class='col-1'><progress value='"+data.content[0].lesson_sub[j].lesson_earnings+"'max='15'></progress></div>"		
+									          			+"<div class='col-1'>"+data.content[0].lesson_sub[j].lesson_earnings+"%</div>"		
+									          			+"</div>"
+									          			+"</div>"
+									          			+"<br>"
+									          			+"<div class='collapse multi-collapse' id='multiCollapseExample1'><div class='e"+j+" card3'></div></div>"
+															 		$(".card").html(text2);
+															 		for(k=1;k<=3;k++){
+															 			$(".e"+k).css("display","none");
+															 		}																		
+															}
+
+						       				});
+						       				$(document).on("click",".d0", function(){
+						       					text3="";
+						       						//text3+=text2;
+						       						for(j=0;j<=data.content[0].lesson_sub[0].lessons.length;j++){
+							       						text3+="<div class='row tema'>"
+							       						+"<div class='col-4'>"+data.content[0].lesson_sub[0].lessons[j].lesson_title+"</div>"
+							       						+"<div class='col-1'>"+data.content[0].lesson_sub[0].lessons[j].lesson_solved+"</div>"
+							       						+"<div class='col-1'>"+data.content[0].lesson_sub[0].lessons[j].lesson_correct+"</div>"									          		
+										          	+"<div class='col-1'>"+data.content[0].lesson_sub[0].lessons[j].lesson_wrong+"</div>"								          			
+										          	+"<div class='col-1'>%"+data.content[0].lesson_sub[0].lessons[j].lesson_success+"</div>"
+										          	+"<div class='col-1'><progress value='"+data.content[0].lesson_sub[0].lessons[j].lesson_earnings+"'max='15'></progress></div>"	
+										          	+"<div class='col-3'>%"+data.content[0].lesson_sub[0].lessons[j].lesson_earnings+"</div>"
+										          	+"</div>"
+										          	+"<br>"   	
+										          	$(".card3").html(text3);		
+									             }
+						       				});
+   				
+						       				$(document).on("click",".0", function(){
+						       						for(j=1; j<=4; j++){
+						       							$(".d"+j).attr("disabled","true");
+						       				 		}
+						       				})			       	
+						       				for(i=1; i<=6; i++){
+						       					$("."+i).attr("disabled","true");
+						       				}   		
+					        }).fail(function(){
+		            console.log("An error has occurred.");
+		        		});
+		  			});
+				</script>
+</body>
+</html>
+

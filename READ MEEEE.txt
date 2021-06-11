@@ -1,0 +1,1 @@
+Ajax dan veri çekilebilmesi için "XAMPP" vs. gibi bir server içinde program açılmalıdır. Canlı bir server altında olmalıdır.
